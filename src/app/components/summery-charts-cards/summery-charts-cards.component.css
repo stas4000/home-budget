@@ -1,0 +1,19 @@
+.doughnut{
+    display: inline-block;
+}
+.summery-info{
+    float: right;
+}
+.balance, .date{
+    font-size: 68px;
+}
+.balance > .material-icons{
+    font-size: 47px;
+}
+.balance-info{
+    font-size: 44px;
+    text-align: right;
+}
+.date{
+    text-align: right;
+}

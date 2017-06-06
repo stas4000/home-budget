@@ -1,0 +1,18 @@
+<form class="example-form">
+
+  <md-select placeholder="תשלום חודשי?" [(ngModel)]="selectedChoice" name="selectedChoice">
+    <md-option *ngFor="let choice of recurringChoice" [value]="choice.value">
+      {{choice.option}}
+    </md-option>
+  </md-select>
+  <br>
+  <md-input-container class="example-full-width">
+    <input mdInput [(ngModel)]="expenseName" name="expenseName" placeholder="שם ההוצאה/הכנסה">
+  </md-input-container>
+  <br>
+  <md-input-container class="input-sum">
+    <input mdInput [(ngModel)]="expenseSum" name="expenseSum" placeholder="סכום">
+  </md-input-container>
+  <button (click)="submit()" class="button-regular form-button" md-mini-fab><md-icon>check</md-icon></button>
+
+</form>

@@ -1,0 +1,22 @@
+<md-card class="summery-card">
+  <div class="doughnut">
+    <canvas class="summeryChart" baseChart
+            [data]="pieChartData"
+            [labels]="pieChartLabels"
+            [chartType]="pieChartType"
+            [options]="pieOptions"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)">
+
+    </canvas>
+  </div>
+  <div class="summery-info">
+    <div class="date">{{date}}</div>
+    <div class="balance">
+      <i class="material-icons green">arrow_upward</i>{{sumPositive}}
+      <i class="material-icons red">arrow_downward</i>{{sumNegative}}
+      <i class="material-icons">functions</i><span class="green">{{sum}}</span>
+    </div>
+    <div class="balance-info"> פעולות <div style="float: right">&nbsp;2</div></div>
+  </div>
+</md-card>

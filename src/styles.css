@@ -1,1 +1,71 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+.mat-tab-label[_ngcontent-c3] {
+    width:100%;
+}
+.mat-tab-body-content {
+    overflow: hidden !important;
+}
+.budget-record, .summery-card{
+    width:100%;
+    margin: 13px 0;
+}
+#md-tab-content-0-0 > div > div:nth-child(1) > app-card > md-card,
+#md-tab-content-0-1 > div > div > app-summery-charts-cards > md-card {
+    margin-top: 26px;
+}
+.avatar {
+    border-radius: 100%;
+    width:42px;
+    height:42px;
+    background:rebeccapurple;
+    display:inline-block;
+    text-align:center;
+    line-height:42px;
+    font-weight: bold;
+    color:white
+}
+.value {
+    color:forestgreen;
+}
+.record-name {
+    padding: 0 10px;
+    float: right;
+}
+.avatar {
+    float: right;
+    margin-top: -10px !important;
+}
+.sum {
+    color: forestgreen;
+    font-weight: bold;
+    font-size: 25px;
+    padding-top: 16px;
+}
+.mat-input-infix, .mat-input-element {
+    text-align: right;
+}
+.button-regular {
+    color:white;
+    float: right;
+}
+.red {
+    color:#ca4747;
+}
+.green{
+    color: forestgreen;
+}
+.mat-select-value {
+    left:auto !important;
+}
+.mat-select-placeholder {
+    text-align: right !important;
+}
+.summeryChart {
+    width:250px !important;
+    height: 250px !important;
+}
+.mat-option {
+    text-align: right;
+}
