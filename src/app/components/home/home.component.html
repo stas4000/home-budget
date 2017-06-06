@@ -1,0 +1,24 @@
+<md-tab-group>
+    <md-tab label="הוצאות/הכנסות">
+        <div class="col-md-12 text-left sum" [ngClass]="{'red': sum < 0}">{{sum}}</div>
+        <div *ngFor="let record of records" class="col-md-12">
+            <app-card
+                [avatar]="record.avatar"
+                [name]="record.name"
+                [value]="record.value"
+            ></app-card>
+        </div>
+        <button md-fab (click)="openAddRecordDialog()" class="add-button button-regular"><md-icon>add</md-icon></button>
+    </md-tab>
+    <md-tab label="סיכום תנודות חודשיות">
+        <div class="col-md-12">
+            <app-summery-charts-cards
+                [date]=date
+                [sumPositive]="500"
+                [sumNegative]="200"
+                [sum]="300"
+            ></app-summery-charts-cards>
+        </div>
+    </md-tab>
+    <md-tab label="גרפים">Content 2</md-tab>
+</md-tab-group>
