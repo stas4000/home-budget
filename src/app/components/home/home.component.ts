@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit {
   sum: any;
   mathString: string;
   date: string;
+  summeryResult: Array<any> = [];
   summeryArray: any = [
   {
     'date': '9/6/2017',
@@ -48,13 +49,27 @@ export class HomeComponent implements OnInit {
         'avatar': 'ה',
         'name': 'הוראת קבע 2',
         'value': '-700',
-        'date': '3/6/2017'
+        'date': '2/6/2017'
       },
     ];
     this.sum = [];
     this.mathString = '';
     this.updateRecords();
-    this.getSummery();
+    let structuredSummery = this.getSummery();
+    debugger;
+    for(let summery in structuredSummery) {
+      const date = Object.keys(structuredSummery[summery])["0"];
+      let result = {
+        'date': Object.keys(structuredSummery[summery])["0"],
+        'sumPositive': this.evaluate(structuredSummery[summery][date].positive),
+        'sumNegative': this.evaluate(structuredSummery[summery][date].negative)
+      };
+      if(result) {
+        this.summeryResult.push(result);
+      }
+    }
+    console.log(this.summeryResult);
+
   }
   openAddRecordDialog() {
     const dialogRef = this.dialog.open(NewRecordDialogComponent);
@@ -101,19 +116,10 @@ export class HomeComponent implements OnInit {
         }
       }
     }
-    console.log(this.mergeSummryObjects(summeryRecords));
+    return this.mergeSummeryObjects(summeryRecords);
   }
-  // mergeObjects(objArr) {
-  //   let storageObj = [];
-  //   for (const obj in objArr) {
-  //     storageObj.push(objArr[obj].date);
-  //     // if (storageObj.date === objArr[obj].date) {
-  //     // }
-  //     storageObj = objArr[obj];
-  //
-  //   }
-  // }
-  mergeSummryObjects(objArr) {
+
+  mergeSummeryObjects(objArr) {
     let skipIndex = [];
     let saveData = {};
     let allData = [];
@@ -124,27 +130,43 @@ export class HomeComponent implements OnInit {
         if (skipIndex.indexOf(object2) == -1) {
           //if the viewed date equals current iteration date
           if (date == objArr[object2].date) {
+            let positive = '';
+            let negative = '';
+            if(Math.sign(objArr[object2].value) == 1) {
+              positive = objArr[object2].value
+            }
+            else if(Math.sign(objArr[object2].value) == -1) {
+              negative = objArr[object2].value
+            }
             if(allData.length > 0) {
                 //if allData[currentCount] contains the viewed date
-                // if (!allData[currentCount][date]) {
                 if (isNaN(this.findInObject(allData, date))) {
                   saveData = {
                     [date]: {
-                      'values': objArr[object2].value
+                      'positive': positive,
+                      'negative': negative
                     }
                   };
                   allData.push(saveData);
                   skipIndex.push(object2);
                 } else {
                   const currentCount = this.findInObject(allData, date);
+                  if(Math.sign(objArr[object2].value) == 1) {
+                    positive = objArr[object2].value;
+                    allData[currentCount][date].positive += objArr[object2].value;
+                  }
+                  else if(Math.sign(objArr[object2].value) == -1) {
+                    negative = objArr[object2].value;
+                    allData[currentCount][date].negative += objArr[object2].value;
+                  }
                   //insert to allData[current allData][date].values the value
-                  allData[currentCount][date].values += objArr[object2].value;
                   skipIndex.push(object2);
                 }
             } else {
               saveData = {
                 [date]: {
-                  'values': objArr[object2].value
+                  'positive': positive,
+                  'negative': negative
                 }
               };
               allData.push(saveData);
@@ -158,6 +180,7 @@ export class HomeComponent implements OnInit {
     }
     return allData;
   }
+
   findInObject(object, date) {
     for(let i = 0; i < object.length; i++) {
       if (object[i][date]) {
