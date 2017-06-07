@@ -38,6 +38,18 @@ export class HomeComponent implements OnInit {
         'value': '-400',
         'date': '2/6/2017'
       },
+      {
+        'avatar': 'ה',
+        'name': 'הוראת קבע',
+        'value': '+4200',
+        'date': '3/6/2017'
+      },
+      {
+        'avatar': 'ה',
+        'name': 'הוראת קבע 2',
+        'value': '-700',
+        'date': '3/6/2017'
+      },
     ];
     this.sum = [];
     this.mathString = '';
@@ -68,8 +80,6 @@ export class HomeComponent implements OnInit {
         }
       }
     }
-    // console.log(this.mathString);
-    console.log(this.mathString);
     this.sum = this.evaluate(this.mathString);
     this.mathString = '';
     if (Math.sign(this.sum) === 1) {
@@ -88,17 +98,10 @@ export class HomeComponent implements OnInit {
             'value': this.records[record].value
           };
           summeryRecords.push(summeryObject);
-
-          // for (const summeryRecord in summeryRecords) {
-          //   if (summeryRecords[summeryRecord].date === date) {
-          //     summeryRecords[summeryRecord].value += ' ' + this.records[record].value;
-          //   }
-          // }
-          //
         }
       }
     }
-    console.log(summeryRecords);
+    console.log(this.mergeSummryObjects(summeryRecords));
   }
   // mergeObjects(objArr) {
   //   let storageObj = [];
@@ -110,5 +113,57 @@ export class HomeComponent implements OnInit {
   //
   //   }
   // }
+  mergeSummryObjects(objArr) {
+    let skipIndex = [];
+    let saveData = {};
+    let allData = [];
+    let count = 0;
+    for (const object in objArr) {
+      let date = objArr[object].date;
+      for (const object2 in objArr) {
+        if (skipIndex.indexOf(object2) == -1) {
+          //if the viewed date equals current iteration date
+          if (date == objArr[object2].date) {
+            if(allData.length > 0) {
+                //if allData[currentCount] contains the viewed date
+                // if (!allData[currentCount][date]) {
+                if (isNaN(this.findInObject(allData, date))) {
+                  saveData = {
+                    [date]: {
+                      'values': objArr[object2].value
+                    }
+                  };
+                  allData.push(saveData);
+                  skipIndex.push(object2);
+                } else {
+                  const currentCount = this.findInObject(allData, date);
+                  //insert to allData[current allData][date].values the value
+                  allData[currentCount][date].values += objArr[object2].value;
+                  skipIndex.push(object2);
+                }
+            } else {
+              saveData = {
+                [date]: {
+                  'values': objArr[object2].value
+                }
+              };
+              allData.push(saveData);
+              skipIndex.push(object2);
+            }
+
+          }
+          count++;
+        }
+      }
+    }
+    return allData;
+  }
+  findInObject(object, date) {
+    for(let i = 0; i < object.length; i++) {
+      if (object[i][date]) {
+        return i
+      }
+    }
+  }
 }
 
