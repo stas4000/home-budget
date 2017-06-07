@@ -42,6 +42,7 @@ export class HomeComponent implements OnInit {
     this.sum = [];
     this.mathString = '';
     this.updateRecords();
+    this.getSummery();
   }
   openAddRecordDialog() {
     const dialogRef = this.dialog.open(NewRecordDialogComponent);
@@ -76,32 +77,38 @@ export class HomeComponent implements OnInit {
     }
   }
   getSummery() {
-    const dates = [{
-      'date': '',
-      'positive': [],
-      'negative': []
-    }];
-
-    for (const obj in dates) {
-      if (dates[obj].date === '10/2') {
-        if (dates[obj].date) {
-          dates[obj]['positive'].push('100');
-        }
-      }
-    }
+    const summeryRecords = [];
     for (const record in this.records) {
       if (this.records[record].hasOwnProperty('date')) {
         if (this.records[record].date) {
           const date = this.records[record].date;
-          if (dates.indexOf(date)) {
-            dates[date] = (this.records[record].date);
-          }
-          // this.summeryArray.push = this.records[record].date;
-          // this.summeryArray.sumPositive = this.records[record].date;
+          let summeryObject = {};
+          summeryObject = {
+            'date': date,
+            'value': this.records[record].value
+          };
+          summeryRecords.push(summeryObject);
+
+          // for (const summeryRecord in summeryRecords) {
+          //   if (summeryRecords[summeryRecord].date === date) {
+          //     summeryRecords[summeryRecord].value += ' ' + this.records[record].value;
+          //   }
+          // }
+          //
         }
       }
     }
+    console.log(summeryRecords);
   }
-
+  // mergeObjects(objArr) {
+  //   let storageObj = [];
+  //   for (const obj in objArr) {
+  //     storageObj.push(objArr[obj].date);
+  //     // if (storageObj.date === objArr[obj].date) {
+  //     // }
+  //     storageObj = objArr[obj];
+  //
+  //   }
+  // }
 }
 
