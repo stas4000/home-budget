@@ -56,13 +56,33 @@ export class HomeComponent implements OnInit {
     this.mathString = '';
     this.updateRecords();
     let structuredSummery = this.getSummery();
-    debugger;
     for(let summery in structuredSummery) {
       const date = Object.keys(structuredSummery[summery])["0"];
+      let sumPositive = this.evaluate(structuredSummery[summery][date].positive);
+      let sumNegative = this.evaluate(structuredSummery[summery][date].negative);
+      let sumPositiveSigned;
+      if(Math.sign(sumPositive) == 1) {
+          sumPositiveSigned = '+' + sumPositive;
+      }
+      // sumNegative = toString(sumNegative)
+      if(sumNegative) {
+        sumNegative = sumNegative.toString()
+      } else {
+        sumNegative = '';
+      }
+      if(sumPositive) {
+        sumPositive = sumPositive.toString()
+      }
+      let sum = sumPositiveSigned + sumNegative;
+      sum = this.evaluate(sum);
+      if(sum) {
+          sum = sum.toString()
+      }
       let result = {
         'date': Object.keys(structuredSummery[summery])["0"],
-        'sumPositive': this.evaluate(structuredSummery[summery][date].positive),
-        'sumNegative': this.evaluate(structuredSummery[summery][date].negative)
+        'sumPositive': sumPositive,
+        'sumNegative': sumNegative,
+        'sum': sum
       };
       if(result) {
         this.summeryResult.push(result);
@@ -86,7 +106,7 @@ export class HomeComponent implements OnInit {
 
   evaluate(fn) {
   return new Function('return ' + fn)();
-  }
+  };
   updateRecords() {
     for (const record in this.records) {
       if (this.records[record].hasOwnProperty('value')) {
