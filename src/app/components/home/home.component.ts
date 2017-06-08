@@ -80,15 +80,14 @@ export class HomeComponent implements OnInit {
       }
       let result = {
         'date': Object.keys(structuredSummery[summery])["0"],
-        'sumPositive': sumPositive,
-        'sumNegative': sumNegative,
+        'sumPositive': sumPositive ? sumPositive : 0,
+        'sumNegative': sumNegative ? sumNegative : 0,
         'sum': sum
       };
       if(result) {
         this.summeryResult.push(result);
       }
     }
-    console.log(this.summeryResult);
 
   }
   openAddRecordDialog() {

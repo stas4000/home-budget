@@ -11,12 +11,12 @@
         <button md-fab (click)="openAddRecordDialog()" class="add-button button-regular"><md-icon>add</md-icon></button>
     </md-tab>
     <md-tab label="סיכום תנודות חודשיות">
-        <div class="col-md-12">
+        <div class="col-md-12" *ngFor="let summery of summeryResult">
             <app-summery-charts-cards
-                [date]=date
-                [sumPositive]="500"
-                [sumNegative]="200"
-                [sum]="300"
+                [date]="summery.date"
+                [sumPositive]="summery.sumPositive"
+                [sumNegative]="summery.sumNegative"
+                [sum]="summery.sum"
             ></app-summery-charts-cards>
         </div>
     </md-tab>
