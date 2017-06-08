@@ -1,5 +1,11 @@
 <form class="example-form">
 
+  <md-input-container style="direction: rtl;">
+    <input  mdInput [disabled]="true" [mdDatepicker]="picker" placeholder="תאריך לבחירה">
+    <button mdSuffix [mdDatepickerToggle]="picker"></button>
+  </md-input-container>
+  <md-datepicker #picker></md-datepicker>
+  <br>
   <md-select placeholder="תשלום חודשי?" [(ngModel)]="selectedChoice" name="selectedChoice">
     <md-option *ngFor="let choice of recurringChoice" [value]="choice.value">
       {{choice.option}}
