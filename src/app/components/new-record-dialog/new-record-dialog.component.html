@@ -1,12 +1,12 @@
-<form class="example-form">
+<form class="record-form">
 
   <md-input-container style="direction: rtl;">
-    <input  mdInput [disabled]="true" [mdDatepicker]="picker" placeholder="תאריך לבחירה">
+    <input  mdInput [disabled]="true" [(ngModel)]="dateChoice" name="dateChoice" [mdDatepicker]="picker" placeholder="תאריך לבחירה">
     <button mdSuffix [mdDatepickerToggle]="picker"></button>
   </md-input-container>
   <md-datepicker #picker></md-datepicker>
   <br>
-  <md-select placeholder="תשלום חודשי?" [(ngModel)]="selectedChoice" name="selectedChoice">
+  <md-select placeholder="תשלום חודשי?" [(ngModel)]="recurring" name="recurringChoice">
     <md-option *ngFor="let choice of recurringChoice" [value]="choice.value">
       {{choice.option}}
     </md-option>
@@ -16,9 +16,10 @@
     <input mdInput [(ngModel)]="expenseName" name="expenseName" placeholder="שם ההוצאה/הכנסה">
   </md-input-container>
   <br>
-  <md-input-container class="input-sum">
-    <input mdInput [(ngModel)]="expenseSum" name="expenseSum" placeholder="סכום">
-  </md-input-container>
-  <button (click)="submit()" class="button-regular form-button" md-mini-fab><md-icon>check</md-icon></button>
-
+  <span>
+    <md-input-container class="input-sum">
+      <input mdInput [(ngModel)]="expenseSum" name="expenseSum" placeholder="סכום">
+    </md-input-container>
+    <button (click)="submit()" class="button-regular form-button" md-mini-fab><md-icon>check</md-icon></button>
+  </span>
 </form>

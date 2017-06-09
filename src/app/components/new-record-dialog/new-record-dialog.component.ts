@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MdDialogRef} from '@angular/material';
+declare let moment: any;
+
 
 @Component({
   selector: 'app-new-record-dialog',
@@ -9,7 +11,9 @@ import {MdDialogRef} from '@angular/material';
 export class NewRecordDialogComponent implements OnInit {
   expenseName: string;
   expenseSum: any;
+  dateChoice: any;
   record: any;
+  recurring: any;
   recurringChoice: Array<any>;
   constructor(public dialogRef: MdDialogRef<NewRecordDialogComponent>) {
     this.recurringChoice = [
@@ -31,28 +35,14 @@ export class NewRecordDialogComponent implements OnInit {
       this.expenseSum = '+' + this.expenseSum;
     }
     this.record = {
-        'avatar': this.expenseName.charAt(0),
-        'name': this.expenseName,
-        'value': this.expenseSum,
-        'date': this.getDate()
+      'date': moment(this.dateChoice).format('DD/MM/YYYY'),
+      'recurring': this.recurring,
+      'avatar': this.expenseName.charAt(0),
+      'name': this.expenseName,
+      'value': this.expenseSum,
       };
+    console.log(this.record);
     this.dialogRef.close(this.record);
-  }
-
-  getDate() {
-    let today: any = new Date();
-    let dd: any = today.getDate();
-    let mm: any = today.getMonth() + 1; // January is 0!
-    const yyyy = today.getFullYear();
-
-    if (dd < 10) {
-      dd = '0' + dd;
-    }
-    if (mm < 10) {
-      mm = '0' + mm;
-    }
-    today = dd + '/' + mm + '/' + yyyy;
-    return today;
   }
 
 }

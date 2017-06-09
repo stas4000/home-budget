@@ -10,7 +10,7 @@
         </div>
         <button md-fab (click)="openAddRecordDialog()" class="add-button button-regular"><md-icon>add</md-icon></button>
     </md-tab>
-    <md-tab label="סיכום תנודות חודשיות">
+    <md-tab label="סיכום תנודות חודשי">
         <div class="col-md-12" *ngFor="let summery of summeryResult">
             <app-summery-charts-cards
                 [date]="summery.date"

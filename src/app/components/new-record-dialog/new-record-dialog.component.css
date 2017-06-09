@@ -1,16 +1,18 @@
 
-.form-button{
+.form-button {
     float: left;
 }
-md-select{
+md-select {
     width: 170px;
     direction: rtl;
 }
 .mat-input-container {
     width: 166px;
 }
-.input-sum{
+.input-sum {
     width: 120px;
     margin-left: 9px;
 }
-
+.record-form > * {
+    padding-bottom: 15px!important;
+}

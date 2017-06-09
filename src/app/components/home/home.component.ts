@@ -55,39 +55,7 @@ export class HomeComponent implements OnInit {
     this.sum = [];
     this.mathString = '';
     this.updateRecords();
-    let structuredSummery = this.getSummery();
-    for(let summery in structuredSummery) {
-      const date = Object.keys(structuredSummery[summery])["0"];
-      let sumPositive = this.evaluate(structuredSummery[summery][date].positive);
-      let sumNegative = this.evaluate(structuredSummery[summery][date].negative);
-      let sumPositiveSigned;
-      if(Math.sign(sumPositive) == 1) {
-          sumPositiveSigned = '+' + sumPositive;
-      }
-      // sumNegative = toString(sumNegative)
-      if(sumNegative) {
-        sumNegative = sumNegative.toString()
-      } else {
-        sumNegative = '';
-      }
-      if(sumPositive) {
-        sumPositive = sumPositive.toString()
-      }
-      let sum = sumPositiveSigned + sumNegative;
-      sum = this.evaluate(sum);
-      if(sum) {
-          sum = sum.toString()
-      }
-      let result = {
-        'date': Object.keys(structuredSummery[summery])["0"],
-        'sumPositive': sumPositive ? sumPositive : 0,
-        'sumNegative': sumNegative ? sumNegative : 0,
-        'sum': sum
-      };
-      if(result) {
-        this.summeryResult.push(result);
-      }
-    }
+    this.updateSummery();
 
   }
   openAddRecordDialog() {
@@ -96,6 +64,7 @@ export class HomeComponent implements OnInit {
       if (result) {
         this.records.push(result);
         this.updateRecords();
+        this.updateSummery();
       }
     });
   }
@@ -120,7 +89,43 @@ export class HomeComponent implements OnInit {
       this.sum = '+' + this.sum;
     }
   }
+  updateSummery() {
+    let structuredSummery = this.getSummery();
+    for(let summery in structuredSummery) {
+      const date = Object.keys(structuredSummery[summery])["0"];
+      let sumPositive = this.evaluate(structuredSummery[summery][date].positive);
+      let sumNegative = this.evaluate(structuredSummery[summery][date].negative);
+      let sumPositiveSigned;
+      if(Math.sign(sumPositive) == 1) {
+        sumPositiveSigned = '+' + sumPositive;
+      }
+      // sumNegative = toString(sumNegative)
+      if(sumNegative) {
+        sumNegative = sumNegative.toString()
+      } else {
+        sumNegative = '';
+      }
+      if(sumPositive) {
+        sumPositive = sumPositive.toString()
+      }
+      let sum = sumPositiveSigned + sumNegative;
+      sum = this.evaluate(sum);
+      if(sum) {
+        sum = sum.toString()
+      }
+      let result = {
+        'date': Object.keys(structuredSummery[summery])["0"],
+        'sumPositive': sumPositive ? sumPositive : 0,
+        'sumNegative': sumNegative ? sumNegative : 0,
+        'sum': sum
+      };
+      if(result) {
+        this.summeryResult.push(result);
+      }
+    }
+  }
   getSummery() {
+    this.summeryResult = [];
     const summeryRecords = [];
     for (const record in this.records) {
       if (this.records[record].hasOwnProperty('date')) {

@@ -10,8 +10,10 @@ export class SummeryChartsCardsComponent implements OnInit {
   @Input() sumPositive: any;
   @Input() sumNegative: any;
   @Input() sum: any;
-  public pieChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail Sales'];
-  public pieChartData: number[] = [300, 500, 100];
+  public pieChartLabels: string[] = ['הכנסות', 'הוצאות'];
+  public pieChartData: number[] = [];
+  public pieColors:Array<any> = [{backgroundColor: ["#69cc69", "#fd8f8f"]}];
+
   public pieChartType = 'doughnut';
   public pieOptions = {
     legend: {
@@ -36,6 +38,7 @@ export class SummeryChartsCardsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.pieChartData = [Math.abs(parseInt(this.sumPositive)), Math.abs(parseInt(this.sumNegative))];
   }
 
 }
