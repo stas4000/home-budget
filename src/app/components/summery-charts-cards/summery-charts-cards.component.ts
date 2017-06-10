@@ -10,6 +10,7 @@ export class SummeryChartsCardsComponent implements OnInit {
   @Input() sumPositive: any;
   @Input() sumNegative: any;
   @Input() sum: any;
+  @Input() actionCount: any;
   public pieChartLabels: string[] = ['הכנסות', 'הוצאות'];
   public pieChartData: number[] = [];
   public pieColors:Array<any> = [{backgroundColor: ["#69cc69", "#fd8f8f"]}];

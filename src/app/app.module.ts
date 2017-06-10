@@ -17,6 +17,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { CardComponent } from './components/card/card.component';
 import { NewRecordDialogComponent } from './components/new-record-dialog/new-record-dialog.component';
 import { SummeryChartsCardsComponent } from './components/summery-charts-cards/summery-charts-cards.component';
+import { BalanceLineChartComponent } from './components/charts/balance-line-chart/balance-line-chart.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent}
@@ -29,7 +30,8 @@ const appRoutes: Routes = [
     NavbarComponent,
     CardComponent,
     NewRecordDialogComponent,
-    SummeryChartsCardsComponent
+    SummeryChartsCardsComponent,
+    BalanceLineChartComponent
   ],
   imports: [
     BrowserModule,

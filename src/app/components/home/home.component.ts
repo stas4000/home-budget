@@ -14,17 +14,6 @@ export class HomeComponent implements OnInit {
   mathString: string;
   date: string;
   summeryResult: Array<any> = [];
-  summeryArray: any = [
-  {
-    'date': '9/6/2017',
-    'sumPositive': ['10000', '25000'],
-    'sumNegative': ['-500', '-2900']
-  },
-  {
-    'date': '8/6/2017',
-    'sumPositive': ['500', '35120'],
-    'sumNegative': ['-270', '-9852']
-  }];
   constructor(public dialog: MdDialog) {
     this.records = [
       {
@@ -117,12 +106,21 @@ export class HomeComponent implements OnInit {
         'date': Object.keys(structuredSummery[summery])["0"],
         'sumPositive': sumPositive ? sumPositive : 0,
         'sumNegative': sumNegative ? sumNegative : 0,
-        'sum': sum
+        'sum': sum,
+        'actionCount': structuredSummery[summery][date].actionCount
       };
       if(result) {
         this.summeryResult.push(result);
       }
     }
+    this.summeryResult.sort(function(a,b){
+      // Turn your strings into dates, and then subtract them
+      // to get a value that is either negative, positive, or zero.
+      const firstDate:any = new Date(b.date);
+      const secondDate:any = new Date(a.date);
+      return firstDate - secondDate;
+    });
+    console.log(this.summeryResult);
   }
   getSummery() {
     this.summeryResult = [];
@@ -148,19 +146,23 @@ export class HomeComponent implements OnInit {
     let saveData = {};
     let allData = [];
     let count = 0;
+    let datesArray = [];
     for (const object in objArr) {
       let date = objArr[object].date;
       for (const object2 in objArr) {
         if (skipIndex.indexOf(object2) == -1) {
           //if the viewed date equals current iteration date
           if (date == objArr[object2].date) {
+            datesArray.push(date);
             let positive = '';
             let negative = '';
             if(Math.sign(objArr[object2].value) == 1) {
-              positive = objArr[object2].value
+              positive = objArr[object2].value;
+              count++;
             }
             else if(Math.sign(objArr[object2].value) == -1) {
-              negative = objArr[object2].value
+              negative = objArr[object2].value;
+              count++;
             }
             if(allData.length > 0) {
                 //if allData[currentCount] contains the viewed date
@@ -168,7 +170,8 @@ export class HomeComponent implements OnInit {
                   saveData = {
                     [date]: {
                       'positive': positive,
-                      'negative': negative
+                      'negative': negative,
+                      'actionCount': ''
                     }
                   };
                   allData.push(saveData);
@@ -190,21 +193,34 @@ export class HomeComponent implements OnInit {
               saveData = {
                 [date]: {
                   'positive': positive,
-                  'negative': negative
+                  'negative': negative,
+                  'actionCount': ''
                 }
               };
               allData.push(saveData);
               skipIndex.push(object2);
             }
-
           }
-          count++;
+          count = 0;
         }
       }
     }
+    allData = this.placeActionCount(datesArray, allData);
     return allData;
   }
-
+  placeActionCount(datesArray, summeryData) {
+    let counts = {};
+    datesArray.forEach(function(x) { counts[x] = (counts[x] || 0)+1; });
+    for(let date in counts) {
+      for(let data in summeryData) {
+        let summeryDate:any = Object.keys(summeryData[data]);
+        if(summeryDate == date) {
+          summeryData[data][date].actionCount = counts[date];
+        }
+      }
+    }
+    return summeryData;
+  }
   findInObject(object, date) {
     for(let i = 0; i < object.length; i++) {
       if (object[i][date]) {
