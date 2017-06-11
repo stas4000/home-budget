@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-balance-line-chart',
@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./balance-line-chart.component.css']
 })
 export class BalanceLineChartComponent implements OnInit {
+  @Input() balance: any;
+
   public lineChartData:Array<any> = [
-    {data: [4000, 2700, -1000, 5000, 7000, 10500, 7000], label: 'Balance report'},
+    {data: [], label: 'Balance report'},
   ];
-  public lineChartLabels:Array<any> = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
+  public lineChartLabels:Array<any> = [];
   public lineChartOptions:any = {
     responsive: true
   };
@@ -20,6 +22,8 @@ export class BalanceLineChartComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.lineChartData[0].data = this.balance.weekSum;
+    this.lineChartLabels = this.balance.days;
   }
 
 }

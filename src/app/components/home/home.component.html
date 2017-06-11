@@ -21,5 +21,9 @@
             ></app-summery-charts-cards>
         </div>
     </md-tab>
-    <md-tab label="גרפים"><app-balance-line-chart></app-balance-line-chart></md-tab>
+    <md-tab label="גרפים">
+        <app-balance-line-chart
+            [balance]="balance">
+        </app-balance-line-chart>
+    </md-tab>
 </md-tab-group>

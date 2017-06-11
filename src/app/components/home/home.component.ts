@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MdDialog} from '@angular/material';
 import { NewRecordDialogComponent } from '../new-record-dialog/new-record-dialog.component';
+declare let moment: any;
 
 
 @Component({
@@ -14,6 +15,7 @@ export class HomeComponent implements OnInit {
   mathString: string;
   date: string;
   summeryResult: Array<any> = [];
+  balance: any;
   constructor(public dialog: MdDialog) {
     this.records = [
       {
@@ -26,7 +28,7 @@ export class HomeComponent implements OnInit {
         'avatar': 'ה',
         'name': 'הוראת קבע לרכב',
         'value': '-400',
-        'date': '2/6/2017'
+        'date': '3/6/2017'
       },
       {
         'avatar': 'ה',
@@ -38,14 +40,50 @@ export class HomeComponent implements OnInit {
         'avatar': 'ה',
         'name': 'הוראת קבע 2',
         'value': '-700',
-        'date': '2/6/2017'
+        'date': '4/6/2017'
       },
+      {
+        'avatar': 'מ',
+        'name': 'מכונית חדשה 2',
+        'value': '+4800',
+        'date': '5/6/2017'
+      },
+      {
+        'avatar': 'ה',
+        'name': 'הוראת קבע לרכב 2',
+        'value': '-470',
+        'date': '6/6/2017'
+      },
+      {
+        'avatar': 'ה',
+        'name': 'הוראת קבע 2',
+        'value': '-1700',
+        'date': '7/6/2017'
+      },
+      {
+        'avatar': 'ה',
+        'name': 'הוראת קבע 3',
+        'value': '+770',
+        'date': '7/6/2017'
+      },
+      {
+        'avatar': 'ה',
+        'name': 'הוראת קבע 4',
+        'value': '+900',
+        'date': '8/6/2017'
+      },
+      {
+        'avatar': 'ה',
+        'name': 'הוראת קבע 5',
+        'value': '+900',
+        'date': '1/6/2017'
+      }
     ];
     this.sum = [];
     this.mathString = '';
     this.updateRecords();
     this.updateSummery();
-
+    this.balance = this.calculateWeekBalance(7,this.summeryResult);
   }
   openAddRecordDialog() {
     const dialogRef = this.dialog.open(NewRecordDialogComponent);
@@ -97,7 +135,7 @@ export class HomeComponent implements OnInit {
       if(sumPositive) {
         sumPositive = sumPositive.toString()
       }
-      let sum = sumPositiveSigned + sumNegative;
+      let sum = (sumPositiveSigned ? sumPositiveSigned : 0) + (sumNegative ? sumNegative : 0);
       sum = this.evaluate(sum);
       if(sum) {
         sum = sum.toString()
@@ -120,7 +158,6 @@ export class HomeComponent implements OnInit {
       const secondDate:any = new Date(a.date);
       return firstDate - secondDate;
     });
-    console.log(this.summeryResult);
   }
   getSummery() {
     this.summeryResult = [];
@@ -227,6 +264,45 @@ export class HomeComponent implements OnInit {
         return i
       }
     }
+  }
+  // Graphs
+  calculateWeekBalance(value, summery) {
+    let days = value; // Days you want to subtract
+    let date = new Date();
+    let last = new Date(date.getTime() - (days * 24 * 60 * 60 * 1000));
+    let day =last.getDate();
+    let month=last.getMonth()+1;
+    let year=last.getFullYear();
+    let momentDate = moment(month+"/"+day+"/"+year);
+    let dayOfWeek = momentDate.weekday();
+
+    return this.getWeekBalance(dayOfWeek, summery);
+  }
+  getWeekBalance(dayOfWeek, summeries) {
+    const result = [];
+    const sumArray = [];
+    let weekBalance = {};
+    let days = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
+    for(let i = dayOfWeek; i <= 7; i++) {
+      if(i == 7) {
+        i = 0
+      }
+      result.push(days[i]);
+      if(result.length == 7) {
+        break;
+      }
+    }
+    for(let summery in summeries) {
+      sumArray.push(summeries[summery].sum);
+      if (sumArray.length == 7) {
+        break;
+      }
+    }
+    weekBalance = {
+      days: days,
+      weekSum: sumArray
+    };
+    return weekBalance;
   }
 }
 
