@@ -15,17 +15,6 @@
 #md-tab-content-0-1 > div > div > app-summery-charts-cards > md-card {
     margin-top: 26px;
 }
-.avatar {
-    border-radius: 100%;
-    width:42px;
-    height:42px;
-    background:rebeccapurple;
-    display:inline-block;
-    text-align:center;
-    line-height:42px;
-    font-weight: bold;
-    color:white
-}
 .value {
     color:forestgreen;
 }

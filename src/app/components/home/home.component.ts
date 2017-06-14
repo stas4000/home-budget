@@ -19,64 +19,74 @@ export class HomeComponent implements OnInit {
   constructor(public dialog: MdDialog) {
     this.records = [
       {
-        'avatar': 'מ',
+        'avatar': 'directions_car',
         'name': 'מכונית חדשה',
         'value': '+1200',
-        'date': '2/6/2017'
+        'date': '2/6/2017',
+        'label': 'car'
       },
       {
-        'avatar': 'ה',
+        'avatar': 'directions_car',
         'name': 'הוראת קבע לרכב',
         'value': '-400',
-        'date': '3/6/2017'
+        'date': '3/6/2017',
+        'label': 'car'
       },
       {
-        'avatar': 'ה',
+        'avatar': 'home',
         'name': 'הוראת קבע',
         'value': '+4200',
-        'date': '3/6/2017'
+        'date': '3/6/2017',
+        'label': 'home'
       },
       {
-        'avatar': 'ה',
+        'avatar': 'home',
         'name': 'הוראת קבע 2',
         'value': '-700',
-        'date': '4/6/2017'
+        'date': '4/6/2017',
+        'label': 'home'
       },
       {
-        'avatar': 'מ',
+        'avatar': 'directions_car',
         'name': 'מכונית חדשה 2',
         'value': '+4800',
-        'date': '5/6/2017'
+        'date': '5/6/2017',
+        'label': 'car'
       },
       {
-        'avatar': 'ה',
+        'avatar': 'directions_car',
         'name': 'הוראת קבע לרכב 2',
         'value': '-470',
-        'date': '6/6/2017'
+        'date': '6/6/2017',
+        'label': 'car'
       },
       {
-        'avatar': 'ה',
+        'avatar': 'loyalty',
         'name': 'הוראת קבע 2',
         'value': '-1700',
-        'date': '7/6/2017'
+        'date': '7/6/2017',
+        'label': 'clothing'
       },
       {
-        'avatar': 'ה',
+        'avatar': 'local_activity',
         'name': 'הוראת קבע 3',
         'value': '+770',
-        'date': '7/6/2017'
+        'date': '7/6/2017',
+        'label': 'entertainment'
       },
       {
-        'avatar': 'ה',
+        'avatar': 'face',
         'name': 'הוראת קבע 4',
         'value': '+900',
-        'date': '8/6/2017'
+        'date': '8/6/2017',
+        'label': 'kids'
       },
       {
-        'avatar': 'ה',
+        'avatar': 'flight_takeoff',
         'name': 'הוראת קבע 5',
         'value': '+900',
-        'date': '1/6/2017'
+        'date': '1/6/2017',
+        'label': 'vacation'
       }
     ];
     this.sum = [];

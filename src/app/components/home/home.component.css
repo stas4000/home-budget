@@ -1,3 +1,7 @@
 .add-button {
-    margin: 0 30px 8px 0;
+    margin: 42px auto;
+    display: block;
+    float: none;
+    position: relative;
+    top: 16px;
 }

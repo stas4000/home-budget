@@ -1,0 +1,11 @@
+.avatar {
+    border-radius: 100%;
+    width:42px;
+    height:42px;
+    background:rebeccapurple;
+    display:inline-block;
+    text-align:center;
+    line-height:57px;
+    font-weight: bold;
+    color:white
+}
